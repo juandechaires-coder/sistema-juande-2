@@ -1,0 +1,180 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Sistema Juande 2.0 — Radar Multifuente</title><style>
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b1220;color:#eef5ff}*{box-sizing:border-box}body{margin:0}header{padding:18px 16px;border-bottom:1px solid #26344c;display:flex;justify-content:space-between;align-items:center}h1{font-size:23px;margin:8px 0 14px}h2{font-size:16px;margin:0 0 12px}.sub{color:#91a6c2;font-size:12px}.brand{font-weight:800;letter-spacing:.05em}.accent{color:#52ddb1}main{padding:16px 14px 105px;max-width:900px;margin:auto}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border:1px solid #2c3d55;background:#162239;border-radius:14px;padding:15px;margin-bottom:12px}.card small{display:block;color:#a4b5ca;margin-bottom:8px}.metric{font-size:24px;font-weight:800}.muted{color:#a4b5ca;font-size:13px;line-height:1.5}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.stack{display:grid;gap:12px}label{display:grid;gap:5px;color:#a9bbd3;font-size:12px}input,select,textarea{background:#0c182a;border:1px solid #43556e;border-radius:9px;color:white;padding:12px;font-size:16px;width:100%}textarea{min-height:80px}button{cursor:pointer;border:0;border-radius:9px;padding:12px 14px;font-weight:700;font-size:13px}.primary{background:#4ed6ab;color:#08231c}.secondary{background:#2a3e58;color:white}.danger{background:#613041;color:white}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.item{border-top:1px solid #34435a;padding:13px 0;line-height:1.5}.item:first-child{border-top:0}.item b{font-size:14px}nav{position:fixed;bottom:0;left:0;right:0;background:#101d31;border-top:1px solid #324159;display:grid;grid-template-columns:repeat(5,1fr);padding:9px 4px max(13px,env(safe-area-inset-bottom));z-index:10}nav button{background:none;color:#9baec8;font-size:10px;padding:6px 1px;display:grid;gap:5px;justify-items:center}nav button span{font-size:21px}nav button.active{color:#56e1b6}.notice{border-left:3px solid #50d8aa;background:#19333b;padding:12px;border-radius:8px;font-size:12px;color:#d3e5e4;line-height:1.5}.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:#283d55;color:#d9e8fa;font-size:11px}.pill.warn{background:#594327;color:#ffdc91}.pill.no{background:#51313d;color:#ffd2db}.pill.yes{background:#214c40;color:#adf5d5}.tiny{font-size:11px;color:#9ab0c9}.item .actions button{padding:8px 10px}.full{grid-column:1/-1}.decision-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.decision-tile{border:1px solid #354b65;border-radius:11px;padding:12px 8px;text-align:center;background:#101d31}.decision-tile strong{display:block;font-size:24px}.decision-tile span{font-size:11px;color:#afc0d5}.review-panel{background:#101d31;border:1px solid #42617c;border-radius:10px;padding:12px;margin:10px 0}.review-panel label{margin-bottom:9px}.decision-section{margin:15px 0 5px;border-top:1px solid #42536b;padding-top:12px}.decision-section h3{margin:0 0 4px;font-size:15px}.decision-section p{margin:0;font-size:12px;color:#a4b5ca}.decision-actions button{font-size:11px}svg{max-width:100%}@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style></head><body><header><div><div class="brand">🔮 SISTEMA JUANDE</div><div class="sub">RADAR MULTIFUENTE · MOBILE 0.7</div></div><div class="sub accent" id="mode">INICIANDO</div></header><main>
+<section class="page active" id="inicio"><div class="sub">Estadísticas de registros reales</div><h1>Dashboard</h1><div class="grid"><div class="card"><small>Picks resueltos</small><div class="metric" id="m-resueltos">—</div></div><div class="card"><small>Win rate</small><div class="metric" id="m-win">—</div></div><div class="card"><small>Utilidad neta</small><div class="metric" id="m-profit">—</div></div><div class="card"><small>ROI</small><div class="metric" id="m-roi">—</div></div></div><div class="card"><h2>Evolución de unidades</h2><div id="chart"></div></div><div class="card"><h2>Registro histórico</h2><div id="history"></div></div><div class="notice">Los resultados históricos sin cuota o importe confirmado no se utilizan para calcular ROI. La aplicación no genera predicciones automáticamente a partir del porcentaje histórico.</div></section>
+<section class="page" id="radar"><div class="sub">Covers · Pickswise · Action Network · GameRead · OráculoSports</div><h1>Radar Multifuente</h1><div class="notice">Meta operativa: investigar 5–10 oportunidades por jornada. No equivale a 5–10 apuestas. Sin cuota o probabilidad validada no se afirma un edge positivo.</div><div class="card"><div class="row"><h2>Jornada de análisis</h2><span class="pill" id="radarCount">0 candidatos</span></div><div class="filters"><label>Fecha<input type="date" id="filterDate"></label><label>Deporte<select id="filterSport"><option value="">Todos</option><option>NCAAF</option><option>NCAAF</option><option>NCAA</option><option>NFL</option><option>MLB</option><option>NBA</option><option>Baloncesto europeo</option><option>Otro</option></select></label><label>Estado<select id="filterStage"><option value="">Todos</option><option value="detectado">Detectado</option><option value="analisis">En análisis</option><option value="validado">Validado</option><option value="descartado">Descartado</option></select></label><label>Sección<select id="filterDecision"><option value="">Todas</option><option value="principal">Propuestas principales</option><option value="reserva">Condicionales y reservas</option><option value="no_aprobado">No aprobados</option><option value="pendiente">Sin clasificar</option></select></label><label>Calificación<select id="filterGrade"><option value="">Todas</option><option>A</option><option>B</option><option>C+</option><option>Sin calificar</option></select></label></div><div class="actions"><button class="secondary" id="clearFilters">Quitar filtros</button><button class="primary" id="loadJornada">Cargar 3 análisis del 9/oct</button></div><p class="tiny">Los análisis precargados son referencias históricas de investigación; sus cuotas no se verifican en vivo.</p></div><div class="card"><h2>Importar lote de análisis</h2><p class="muted">Carga un JSON con 5–10 candidatos (o más). Revisa la vista previa y confirma: se fusiona con el Radar sin alterar picks ni historial. No se inventan probabilidades.</p><label>Archivo del lote (.json)<input id="batchFile" type="file" accept=".json,application/json"></label><div id="batchPreview" class="muted" style="margin-top:12px">Sin lote seleccionado.</div><div class="actions"><button class="primary" id="batchApply" type="button" disabled>Confirmar importación del lote</button><button class="secondary" id="batchCancel" type="button">Cancelar</button></div></div><div class="card"><h2>Decisiones de la jornada</h2><p class="muted">Tres secciones operativas. Una propuesta principal NO equivale a una apuesta ejecutada ni a una probabilidad validada. Las reservas pasan por una segunda revisión documentada.</p><div class="decision-grid"><div class="decision-tile"><strong id="countMain">0</strong><span>Propuestas principales</span></div><div class="decision-tile"><strong id="countReserve">0</strong><span>Condicionales y reservas</span></div><div class="decision-tile"><strong id="countReject">0</strong><span>No aprobados</span></div></div><div id="opportunities"></div></div><div class="card"><h2>Agregar oportunidad</h2><form id="opForm" class="stack"><label>Fecha del evento<input name="date" type="date" required></label><label>Deporte<select name="sport"><option>MLB</option><option>NFL</option><option>NCAAF</option><option>NCAA</option><option>NBA</option><option>Baloncesto europeo</option><option>NHL</option><option>Tenis</option><option>Fútbol</option></select></label><label>Partido<input name="event" required></label><label>Mercado exacto<input name="market" required></label><label>Cuota decimal<input name="odds" type="number" step=".01" min="1.01"></label><label>Probabilidad propia validada (%)<input name="prob" type="number" step=".1" min=".1" max="99.9"></label><label>Fuentes<input name="sources" placeholder="Covers, Pickswise, GameRead"></label><label>Calificación<select name="grade"><option value="">Sin calificar</option><option>A</option><option>B</option><option>C+</option></select></label><label>URL de fuente<input name="sourceUrl" type="url" placeholder="https://..."></label><label>Sección de decisión<select name="decision"><option value="pendiente">Pendiente de clasificar</option><option value="principal">Propuestas principales</option><option value="reserva">Condicionales y reservas</option><option value="no_aprobado">No aprobados</option></select></label><label>Estado<select name="stage"><option value="detectado">Detectado</option><option value="analisis">En análisis</option><option value="validado">Validado</option><option value="descartado">Descartado</option></select></label><label>Notas<textarea name="notes"></textarea></label><label>Resultado observado (no afecta ROI)<select name="outcome"><option value="">Sin resolver</option><option value="ganado">Acertó</option><option value="perdido">Falló</option><option value="nulo">Push</option></select></label><button class="primary" type="submit">Guardar oportunidad</button></form></div></section>
+<section class="page" id="evaluar"><h1>Evaluador de valor</h1><div class="card"><div class="stack"><label>Cuota decimal<input id="calcOdds" type="number" value="1.66" min="1.01" step=".01"></label><label>Probabilidad propia estimada (%)<input id="calcProb" type="number" placeholder="No usar hit rate como proyección" min=".1" max="99.9" step=".1"></label><div class="grid"><div><small>Probabilidad implícita</small><div class="metric" id="implied">—</div></div><div><small>Edge</small><div class="metric" id="edge">—</div></div><div><small>EV</small><div class="metric" id="ev">—</div></div><div><small>Cuota justa</small><div class="metric" id="fair">—</div></div></div></div></div><div class="notice">Una probabilidad propia necesita modelo y evidencia. EV positivo no garantiza ganancia.</div></section>
+<section class="page" id="registro"><h1>Registrar pick</h1><div class="card"><form id="pickForm" class="stack"><label>Fecha<input name="date" type="date" required></label><label>Deporte<select name="sport"><option>MLB</option><option>NFL</option><option>NCAAF</option><option>NCAA</option><option>NBA</option><option>Baloncesto europeo</option><option>Otro</option></select></label><label>Partido<input name="event" required></label><label>Selección<input name="market" required></label><label>Cuota decimal<input name="odds" type="number" min="1.01" step=".01"></label><label>Unidades apostadas<input name="units" type="number" min=".01" step=".01"></label><label>Resultado<select name="status"><option value="pendiente">Pendiente</option><option value="ganado">Ganado</option><option value="perdido">Perdido</option><option value="nulo">Nulo</option></select></label><label>Notas<textarea name="notes"></textarea></label><button class="primary" type="submit">Guardar pick</button></form></div></section>
+<section class="page" id="datos"><h1>Datos y respaldos</h1><div class="card"><h2>Exportar respaldo</h2><p class="muted">Guarda el JSON en Archivos. Puedes recuperarlo al cambiar de versión o dispositivo.</p><div class="actions"><button class="primary" id="export">Exportar JSON</button><button class="secondary" id="exportCSV">Exportar CSV</button></div></div><div class="card"><h2>Importar respaldo</h2><p class="muted">Fusionar conserva registros existentes y agrega IDs nuevos. Reemplazar sobrescribe los datos actuales.</p><label>Seleccionar archivo JSON<input id="import" type="file" accept=".json,application/json"></label><label>Modo de importación<select id="importMode"><option value="merge">Fusionar (recomendado)</option><option value="replace">Reemplazar todo</option></select></label></div><div class="card"><h2>Exportar Radar</h2><p class="muted">Comparte oportunidades de investigación en CSV, separado de apuestas reales.</p><button class="secondary" id="exportRadarCSV">Exportar Radar CSV</button></div><div class="card"><h2>Diagnóstico</h2><div id="diag" class="muted"></div></div><div class="notice">Al abrir HTML desde Archivos en iPhone, iOS puede impedir la persistencia o las descargas. Si el diagnóstico indica almacenamiento temporal, exporta los datos al terminar. Para uso confiable a largo plazo prepararemos una PWA servida por HTTPS.</div></section>
+</main><nav id="tabs"><button class="active" data-target="inicio"><span>▦</span>Inicio</button><button data-target="radar"><span>◈</span>Radar</button><button data-target="evaluar"><span>◎</span>Evaluar</button><button data-target="registro"><span>＋</span>Picks</button><button data-target="datos"><span>⚙</span>Datos</button></nav>
+<script>
+(function(){
+"use strict";
+var KEY="juande-mobile-stable-v04"; // Misma clave: conserva datos de la versión 0.4
+var $=function(id){return document.getElementById(id)};
+var seed={version:4,picks:[{id:"historico-dodgers",date:"2026-10-05",sport:"MLB",event:"Dodgers vs Braves",market:"Under 8 carreras",odds:null,units:null,status:"ganado",notes:"Resultado reportado por Juande. Cuota e importe sin confirmar."},{id:"historico-martinez",date:"2026-10-05",sport:"MLB",event:"Nick Martínez",market:"Combinada Over 1.5 K + Over 1.5 carreras limpias",odds:null,units:null,status:"ganado",notes:"Resultado reportado por Juande. Cuota combinada sin confirmar."}],opportunities:[{id:"teel-20261008",date:"2026-10-08",sport:"MLB",event:"Cleveland Guardians vs Chicago White Sox",market:"Kyle Teel Over 0.5 H+R+RBI",odds:1.66,prob:null,sources:"GameRead, Stake (cuota reportada)",stage:"analisis",notes:"GameRead: 9/10, promedio 2.6 H+R+RBI. No existe proyección independiente validada. Cuota histórica, no vigente necesariamente."}]};
+var db=JSON.parse(JSON.stringify(seed));var storage=false;
+try{var raw=window.localStorage.getItem(KEY);if(raw){var obj=JSON.parse(raw);if(obj&&Array.isArray(obj.picks)&&Array.isArray(obj.opportunities))db=obj;}window.localStorage.setItem(KEY,JSON.stringify(db));storage=true}catch(err){storage=false}
+function save(){try{window.localStorage.setItem(KEY,JSON.stringify(db));storage=true}catch(err){storage=false}updateMode()}
+function updateMode(){$("mode").textContent=storage?"LOCAL":"TEMPORAL";$("diag").textContent=storage?"Almacenamiento local disponible en este contexto. Aun así, realiza respaldos.":"Almacenamiento bloqueado: los cambios pueden perderse al cerrar. Exporta respaldo JSON."}
+function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function num(v){return v===""||v==null?null:Number(v)}
+function nav(page){var pages=document.querySelectorAll(".page");for(var i=0;i<pages.length;i++)pages[i].classList.toggle("active",pages[i].id===page);var bs=document.querySelectorAll("#tabs button");for(var j=0;j<bs.length;j++)bs[j].classList.toggle("active",bs[j].getAttribute("data-target")===page);window.scrollTo(0,0)}
+$("tabs").addEventListener("click",function(e){var b=e.target.closest("button[data-target]");if(b)nav(b.getAttribute("data-target"))});
+function render(){var resolved=db.picks.filter(function(x){return x.status==="ganado"||x.status==="perdido"});var won=resolved.filter(function(x){return x.status==="ganado"});$("m-resueltos").textContent=resolved.length;$("m-win").textContent=resolved.length?(100*won.length/resolved.length).toFixed(1)+"%":"—";
+var priced=db.picks.filter(function(x){return (x.status==="ganado"||x.status==="perdido"||x.status==="nulo")&&num(x.odds)>1&&num(x.units)>0});var risk=0,profit=0,series=[0];priced.forEach(function(x){var u=Number(x.units),gain=x.status==="ganado"?u*(Number(x.odds)-1):x.status==="perdido"?-u:0;risk+=u;profit+=gain;series.push(profit)});$("m-profit").textContent=risk?(profit>=0?"+":"")+profit.toFixed(2)+" U":"—";$("m-roi").textContent=risk?(100*profit/risk).toFixed(1)+"%":"—";
+$("history").innerHTML=db.picks.map(function(x){return '<div class="item"><b>'+esc(x.market)+'</b><div class="muted">'+esc(x.date)+' · '+esc(x.sport)+' · '+esc(x.status)+' · '+esc(x.event)+'</div><div class="muted">'+esc(x.notes)+'</div></div>'}).join("")||'<p class="muted">Sin registros.</p>';
+renderRadar();$("chart").innerHTML=risk?makeChart(series):'<p class="muted">La gráfica aparecerá cuando registremos picks resueltos con cuota e importe verificables.</p>';
+}
+
+function uniqueKey(x){return [x.date,x.sport,x.event,x.market].map(function(v){return String(v||"").trim().toLowerCase()}).join("|")}
+
+var pendingBatch=null;
+function normalizedBatch(raw){
+ var rows=Array.isArray(raw)?raw:(raw&&Array.isArray(raw.opportunities)?raw.opportunities:null);
+ if(!rows)throw Error("El JSON debe ser una lista o contener opportunities: [...]");
+ if(!rows.length)throw Error("El lote está vacío");
+ if(rows.length>150)throw Error("Máximo 150 candidatos por lote");
+ var result=[],seen={};
+ rows.forEach(function(x,i){
+  if(!x||typeof x!=="object"||Array.isArray(x))throw Error("Registro "+(i+1)+" inválido");
+  var date=String(x.date||"").trim(),sport=String(x.sport||"").trim(),event=String(x.event||"").trim(),market=String(x.market||"").trim();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!sport||!event||!market)throw Error("Registro "+(i+1)+": requiere date (AAAA-MM-DD), sport, event y market");
+  if([sport,event,market].some(function(v){return v.length>250}))throw Error("Registro "+(i+1)+": texto demasiado largo");
+  var odds=x.odds==null||x.odds===""?null:Number(x.odds),prob=x.prob==null||x.prob===""?null:Number(x.prob);
+  if(odds!==null&&(!isFinite(odds)||odds<=1||odds>1000))throw Error("Registro "+(i+1)+": cuota inválida");
+  if(prob!==null&&(!isFinite(prob)||prob<=0||prob>=100))throw Error("Registro "+(i+1)+": probabilidad inválida");
+  var stage=["detectado","analisis","validado","descartado"].indexOf(x.stage)>=0?x.stage:"detectado";
+  var grade=["A","B","C+"].indexOf(x.grade)>=0?x.grade:"";
+  var outcome=["ganado","perdido","nulo"].indexOf(x.outcome)>=0?x.outcome:"";
+  var y={id:"batch-"+date+"-"+i+"-"+Date.now(),date:date,sport:sport,event:event,market:market,odds:odds,prob:prob,sources:String(x.sources||"").slice(0,500),grade:grade,stage:stage,outcome:outcome,sourceUrl:/^https:\/\/[a-z0-9.-]+(?:[/:?#]|$)/i.test(x.sourceUrl||"")?String(x.sourceUrl).slice(0,1200):"",notes:String(x.notes||"").slice(0,3000)};
+  var key=uniqueKey(y);if(!seen[key]){seen[key]=true;result.push(y)}
+ });
+ return result;
+}
+function clearBatch(){pendingBatch=null;$("batchFile").value="";$("batchApply").disabled=true;$("batchPreview").textContent="Sin lote seleccionado."}
+$("batchCancel").addEventListener("click",clearBatch);
+$("batchFile").addEventListener("change",function(e){
+ var f=e.target.files[0];pendingBatch=null;$("batchApply").disabled=true;
+ if(!f){clearBatch();return}
+ if(f.size>1000000){$("batchPreview").textContent="Archivo demasiado grande (máximo 1 MB).";return}
+ var reader=new FileReader();
+ reader.onload=function(){try{
+  var rows=normalizedBatch(JSON.parse(reader.result));
+  var existing={};db.opportunities.forEach(function(x){existing[uniqueKey(x)]=true});
+  var fresh=rows.filter(function(x){return !existing[uniqueKey(x)]});
+  pendingBatch=fresh;
+  $("batchPreview").innerHTML="<b>"+rows.length+" candidatos válidos · "+fresh.length+" nuevos · "+(rows.length-fresh.length)+" repetidos</b><div class='tiny'>"+rows.slice(0,12).map(function(x){return esc(x.date+" · "+x.sport+" · "+x.event+" · "+x.market)}).join("<br>")+"</div><p class='tiny'>Solo se agregarán nuevos candidatos. Los registros existentes no serán sobrescritos.</p>";
+  $("batchApply").disabled=!fresh.length;
+ }catch(err){$("batchPreview").textContent="Error: "+err.message}};
+ reader.onerror=function(){$("batchPreview").textContent="No se pudo leer el archivo."};
+ reader.readAsText(f);
+});
+$("batchApply").addEventListener("click",function(){
+ if(!pendingBatch||!pendingBatch.length)return;
+ var count=pendingBatch.length;
+ if(!confirm("¿Agregar "+count+" candidatos al Radar sin modificar tus registros existentes?"))return;
+ mergeRows(db.opportunities,pendingBatch);save();render();clearBatch();alert(count+" candidatos procesados. Revisa el Radar.");
+});
+
+function mergeRows(oldRows,newRows){var ids={},keys={};oldRows.forEach(function(x){if(x.id)ids[x.id]=true;keys[uniqueKey(x)]=true});newRows.forEach(function(x){if(!x||typeof x!=="object")return;var k=uniqueKey(x);if((x.id&&ids[x.id])||keys[k])return;oldRows.push(x);if(x.id)ids[x.id]=true;keys[k]=true});return oldRows}
+var sampleJornada=[
+{id:"radar-20261009-iowastate",date:"2026-10-09",sport:"NCAAF",event:"Iowa State vs BYU",market:"Iowa State +11.0",odds:1.85,prob:null,sources:"Covers, Pickswise, Action Network; Stake.mx (cuota reportada por usuario)",grade:"B",stage:"analisis",outcome:"",sourceUrl:"https://www.covers.com/picks",notes:"Condicional. Mejor línea que +10.5 publicado; lesión y disponibilidad requieren revisión. EV NO determinado. Cuota reportada, no verificada en vivo."},
+{id:"radar-20261009-iowa",date:"2026-10-09",sport:"NCAAF",event:"Iowa vs Washington",market:"Iowa +4.0",odds:1.65,prob:null,sources:"Pickswise, Covers, Action Network; Stake.mx (cuota reportada por usuario)",grade:"B",stage:"analisis",outcome:"",sourceUrl:"https://www.pickswise.com/",notes:"Condicional. Desacuerdo entre analistas; revisar disponibilidad del quarterback. EV NO determinado. Cuota reportada, no verificada en vivo."},
+{id:"radar-20261009-fsu",date:"2026-10-09",sport:"NCAAF",event:"Florida State vs Louisville",market:"Over 59.5 puntos",odds:1.82,prob:null,sources:"Pickswise, Covers, DRatings; Stake.mx (cuota reportada por usuario)",grade:"C+",stage:"descartado",outcome:"",sourceUrl:"https://www.covers.com/picks",notes:"Descartado por ahora: proyecciones próximas al mercado; no hay edge positivo demostrado. Cuota reportada, no verificada en vivo."}
+];
+// Clasificación inicial SOLO de los diez mercados discutidos. No altera picks ni estadísticas.
+var initialDecisions=[
+ ["Jojo Phillips","principal","Principal preliminar. 4 partidos: 2,1,2,1 recepciones; cuota de referencia 1.71. Pendiente validación de mercado vigente y de modelo independiente."],
+ ["Lincoln Kienholz","reserva","Segunda revisión: confirmar disponibilidad física, snaps y distribución de acarreos, yardas por partido y cuota vigente."],
+ ["Legend Glasker","reserva","Segunda revisión: participación ofensiva, targets y variabilidad; verificar línea y cuota."],
+ ["Ousmane Kromah","reserva","Segunda revisión: rol en zona roja, volumen de oportunidades y dependencia del guion."],
+ ["Pauline Astier","reserva","Segunda revisión: minutos, rol y tendencia reciente de asistencias; confirmar cuota ejecutable."],
+ ["Chelsea Gray","reserva","Segunda revisión: minutos, lesiones y distribución de asistencias; verificar cuota."],
+ ["Angel Reese","reserva","Segunda revisión: minutos, matchup de rebotes y precio real disponible."],
+ ["Duce Robinson","no_aprobado","Línea incompatible: Radar Under 39.5 vs fuente Under 92.5; no trasladar probabilidad."],
+ ["Jabari Bates","no_aprobado","Línea incompatible: Radar Over 29.5 vs fuente Over 39.5; no trasladar probabilidad."],
+ ["Gabby Williams","no_aprobado","Cuota ejecutable y proyección independiente insuficientemente contrastadas."]
+];
+function assignInitialDecisions(){
+ var changed=false;
+ db.opportunities.forEach(function(x){
+  if(x.decision)return;
+  if(x.date!=="2026-10-09")return;
+  var found=initialDecisions.find(function(t){return String(x.market||"").toLowerCase().indexOf(t[0].toLowerCase())>=0});
+  if(found){x.decision=found[1];x.reviewReason=found[2];x.reviewHistory=x.reviewHistory||[];changed=true}
+ });
+ if(changed)save();
+}
+function sectionOf(x){return ["principal","reserva","no_aprobado"].indexOf(x.decision)>=0?x.decision:"pendiente"}
+function renderRadar(){
+ var fd=$("filterDate").value,fs=$("filterSport").value,ft=$("filterStage").value,fg=$("filterGrade").value,dec=$("filterDecision").value;
+ var rows=db.opportunities.filter(function(x){return (!fd||x.date===fd)&&(!fs||x.sport===fs)&&(!ft||x.stage===ft)&&(!fg||(fg==="Sin calificar"?!x.grade:x.grade===fg))&&(!dec||sectionOf(x)===dec)});
+ $("radarCount").textContent=rows.length+" de "+db.opportunities.length+" candidatos";
+ $("countMain").textContent=rows.filter(function(x){return sectionOf(x)==="principal"}).length;
+ $("countReserve").textContent=rows.filter(function(x){return sectionOf(x)==="reserva"}).length;
+ $("countReject").textContent=rows.filter(function(x){return sectionOf(x)==="no_aprobado"}).length;
+ function card(x){
+  var imp=num(x.odds)>1?(100/Number(x.odds)).toFixed(2)+"%":"—";
+  var ev=num(x.prob)>0&&num(x.odds)>1?((Number(x.odds)*Number(x.prob)/100-1)*100).toFixed(2)+"%":"No determinado";
+  var cls=sectionOf(x)==="no_aprobado"?"no":sectionOf(x)==="principal"?"yes":"warn";
+  var url=/^https:\/\/[a-z0-9.-]+(?:[/:?#]|$)/i.test(x.sourceUrl||"")?'<a target="_blank" rel="noopener noreferrer" href="'+esc(x.sourceUrl)+'">Abrir fuente ↗</a>':"";
+  var history=Array.isArray(x.reviewHistory)?x.reviewHistory:[];
+  return '<div class="item"><div class="row"><b>'+esc(x.market)+'</b><span class="pill '+cls+'">'+esc(x.grade||"Sin calificar")+' · '+esc(x.stage||"detectado")+'</span></div><div class="muted">'+esc(x.date)+' · '+esc(x.sport)+' · '+esc(x.event)+'</div><div class="muted">Cuota: '+esc(x.odds??"—")+' · Implícita: '+imp+' · EV: '+ev+'</div><div class="muted">Fuentes: '+esc(x.sources||"—")+'</div><div class="muted">'+esc(x.notes||"")+'</div><div class="tiny">Motivo de clasificación: '+esc(x.reviewReason||"No documentado")+'</div><div class="tiny">Revisiones registradas: '+history.length+' · Resultado: '+esc(x.outcome||"sin resolver")+' · '+url+'</div><div class="actions decision-actions"><button class="secondary" type="button" data-eval="'+esc(x.id)+'">Evaluar</button><button class="secondary" type="button" data-review="'+esc(x.id)+'">Segunda revisión</button><button class="secondary" type="button" data-edit="'+esc(x.id)+'">Editar estado</button></div><div data-review-box="'+esc(x.id)+'"></div></div>';
+ }
+ var sections=[
+  ["principal","1 · Propuestas principales","Prioridad para verificación final. No significa apuesta realizada."],
+  ["reserva","2 · Condicionales y reservas","Resolver dudas, documentar evidencia y decidir: principal o no aprobado."],
+  ["no_aprobado","3 · No aprobados","Conservados para seguimiento y análisis histórico."],
+  ["pendiente","Sin clasificar","Candidatos anteriores o nuevos que aún no tienen dictamen."]
+ ];
+ $("opportunities").innerHTML=sections.map(function(g){
+  var group=rows.filter(function(x){return sectionOf(x)===g[0]});
+  return '<div class="decision-section"><h3>'+g[1]+' ('+group.length+')</h3><p>'+g[2]+'</p></div>'+(group.map(card).join("")||'<p class="tiny">Sin candidatos en esta sección.</p>');
+ }).join("");
+}
+["filterDate","filterSport","filterStage","filterGrade","filterDecision"].forEach(function(id){$(id).addEventListener("change",renderRadar)});
+$("clearFilters").addEventListener("click",function(){["filterDate","filterSport","filterStage","filterGrade","filterDecision"].forEach(function(id){$(id).value=""});renderRadar()});
+$("loadJornada").addEventListener("click",function(){var before=db.opportunities.length;mergeRows(db.opportunities,sampleJornada);assignInitialDecisions();save();render();alert((db.opportunities.length-before)+" candidatos nuevos agregados. Los existentes se conservaron.")});
+$("opportunities").addEventListener("click",function(e){
+ var b=e.target.closest("button");if(!b)return;
+ var id=b.getAttribute("data-eval")||b.getAttribute("data-edit")||b.getAttribute("data-review")||b.getAttribute("data-save-review");
+ var x=db.opportunities.find(function(y){return y.id===id});if(!x)return;
+ if(b.hasAttribute("data-eval")){$("calcOdds").value=x.odds||"";$("calcProb").value=x.prob||"";evaluate();nav("evaluar");return}
+ if(b.hasAttribute("data-edit")){
+  var v=prompt("Estado: detectado, analisis, validado, descartado",x.stage||"analisis");if(v===null)return;
+  if(["detectado","analisis","validado","descartado"].indexOf(v)<0){alert("Estado no válido");return}
+  x.stage=v;save();render();return;
+ }
+ if(b.hasAttribute("data-review")){
+  var el=document.querySelector('[data-review-box="'+id.replace(/"/g,"")+'"]');if(!el)return;
+  if(el.innerHTML){el.innerHTML="";return}
+  el.innerHTML='<div class="review-panel"><b>Segunda revisión documentada</b><p class="tiny">Comprueba dudas con evidencia. No se calculan probabilidades automáticamente.</p><label>Evidencia nueva / fuentes / estado de lesiones<textarea data-review-evidence placeholder="Registra estadísticas, fuentes, línea y cuota revisadas"></textarea></label><label>Dudas resueltas y riesgos pendientes<textarea data-review-notes placeholder="Qué cambió y qué dudas permanecen"></textarea></label><label>Resolución<select data-review-decision><option value="reserva">Mantener en condicionales</option><option value="principal">Trasladar a propuestas principales</option><option value="no_aprobado">Trasladar a no aprobados</option></select></label><button class="primary" type="button" data-save-review="'+esc(id)+'">Guardar revisión y clasificación</button></div>';return;
+ }
+ if(b.hasAttribute("data-save-review")){
+  var panel=b.closest(".review-panel");
+  var evidence=panel.querySelector("[data-review-evidence]").value.trim(),notes=panel.querySelector("[data-review-notes]").value.trim(),decision=panel.querySelector("[data-review-decision]").value;
+  if(!evidence||!notes){alert("Documenta la evidencia nueva y la conclusión antes de guardar.");return}
+  if(!Array.isArray(x.reviewHistory))x.reviewHistory=[];
+  x.reviewHistory.push({date:new Date().toISOString(),from:sectionOf(x),to:decision,evidence:evidence,conclusion:notes});
+  x.decision=decision;x.reviewReason=notes;
+  // No cambiar el estado de validación estadística ni crear un pick apostado.
+  save();render();alert("Segunda revisión guardada. Clasificación actualizada sin modificar picks ni historial.");
+ }
+});
+
+function makeChart(values){var min=Math.min.apply(null,values),max=Math.max.apply(null,values),range=max-min||1;var pts=values.map(function(v,i){return (15+i*300/Math.max(1,values.length-1)).toFixed(1)+","+(140-(v-min)/range*110).toFixed(1)}).join(" ");return '<svg viewBox="0 0 330 160" role="img" aria-label="Evolución de unidades"><line x1="10" y1="145" x2="320" y2="145" stroke="#3d5067"/><polyline points="'+pts+'" fill="none" stroke="#4ed6ab" stroke-width="3" stroke-linecap="round"/></svg>'}
+function evaluate(){var o=num($("calcOdds").value),p=num($("calcProb").value);$("implied").textContent=o>1?(100/o).toFixed(2)+"%":"—";$("edge").textContent=o>1&&p>0?(p-100/o).toFixed(2)+" pp":"—";$("ev").textContent=o>1&&p>0?((o*p/100-1)*100).toFixed(2)+"%":"—";$("fair").textContent=p>0?(100/p).toFixed(2):"—"}
+$("calcOdds").addEventListener("input",evaluate);$("calcProb").addEventListener("input",evaluate);
+function formObj(form){var obj={};new FormData(form).forEach(function(v,k){obj[k]=v});return obj}
+$("opForm").addEventListener("submit",function(e){e.preventDefault();var x=formObj(this);x.odds=num(x.odds);x.prob=num(x.prob);x.id="op-"+Date.now();db.opportunities.unshift(x);save();render();this.reset();setDate();alert("Oportunidad registrada.")});
+$("pickForm").addEventListener("submit",function(e){e.preventDefault();var x=formObj(this);x.odds=num(x.odds);x.units=num(x.units);x.id="pick-"+Date.now();db.picks.unshift(x);save();render();this.reset();setDate();alert("Pick registrado.")});
+function download(name,content,type){var blob=new Blob([content],{type:type});var url=URL.createObjectURL(blob);var a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},10000)}
+$("export").addEventListener("click",function(){download("juande_respaldo.json",JSON.stringify(db,null,2),"application/json")});
+$("exportCSV").addEventListener("click",function(){var keys=["date","sport","event","market","odds","units","status","notes"];var rows=[keys.join(",")].concat(db.picks.map(function(x){return keys.map(function(k){return '"'+String(x[k]==null?"":x[k]).replace(/"/g,'""')+'"'}).join(",")}));download("juande_picks.csv","\ufeff"+rows.join("\r\n"),"text/csv;charset=utf-8")});
+$("import").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;var reader=new FileReader();reader.onload=function(){try{var x=JSON.parse(reader.result);if(!Array.isArray(x.picks)||!Array.isArray(x.opportunities))throw Error("Formato no compatible");var mode=$("importMode").value;if(mode==="replace"){if(!confirm("¿REEMPLAZAR todos los datos actuales? Exporta primero un respaldo."))return;db=x}else{var oldP=db.picks.length,oldO=db.opportunities.length;mergeRows(db.picks,x.picks);mergeRows(db.opportunities,x.opportunities);alert("Fusionados: "+(db.picks.length-oldP)+" picks y "+(db.opportunities.length-oldO)+" oportunidades nuevas.")}save();render();if(mode==="replace")alert("Respaldo importado y datos reemplazados.")}catch(err){alert("Error: "+err.message)}};reader.readAsText(f);e.target.value=""});
+$("exportRadarCSV").addEventListener("click",function(){var keys=["date","sport","event","market","odds","prob","sources","grade","stage","decision","reviewReason","outcome","sourceUrl","notes"];var rows=[keys.join(",")].concat(db.opportunities.map(function(x){return keys.map(function(k){var val=String(x[k]==null?"":x[k]);return '"'+val.replace(/"/g,'""')+'"'}).join(",")}));download("juande_radar.csv","\ufeff"+rows.join("\r\n"),"text/csv;charset=utf-8")});
+function setDate(){var d=new Date();var date=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");document.querySelector('#opForm [name="date"]').value=date;document.querySelector('#pickForm [name="date"]').value=date}
+setDate();updateMode();assignInitialDecisions();render();evaluate();
+})();
+</script></body></html>
